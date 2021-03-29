@@ -9,7 +9,18 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    // YOUR CODE HERE
+    const result = [];
+    const lookUp = {};
+    for (let num of array) {
+      lookUp[num] = true;
+    }
+    for (let num of array) {
+      if (lookUp[num] === true) {
+        result.push(num);
+        lookUp[num] = false;
+      }
+    }
+    return result;
   }
 
   /**
@@ -30,7 +41,11 @@ class LoScore {
   }
 
   map(collection, iteratee) {
-    // YOUR CODE HERE
+    let result = [];
+    this.each(collection, (value, index, collection) => {
+      result.push(iteratee(value));
+    });
+    return result;
   }
 
   filter(collection, test) {
@@ -39,14 +54,55 @@ class LoScore {
     return result;
   }
 
-  reject(collection, test) {}
+  reject(collection, test) {
+    let result = [];
+    this.filter(collection, (value) => {
+      if (test(value) === false) {
+        result.push(value);
+      }
+    });
+    return result;
+  }
 
   reduce(collection, iterator, accumulator) {
     // YOUR CODE HERE
+    // for each element of collection
+    // run the iterator on the element and the accumulator
+    // if the accumulator is left undefined, the accum should start being equal to collection[0], and the first targets of iterator should be collection[0] and collection[1]
+    if (typeof accumulator === "undefined") {
+      accumulator = collection[0];
+      // initialize a new array, and populate it with everything in collection except index 0, which has been used as accumulator
+      let newColl = [];
+      for (let i = 1; i < collection.length; i++) {
+        newColl.push(collection[i]);
+      }
+
+      this.each(newColl, (value) => {
+        accumulator = iterator(accumulator, value);
+      });
+    } else {
+      this.each(collection, (value) => {
+        accumulator = iterator(accumulator, value);
+      });
+    }
+    return accumulator;
   }
 
-  every() {
-    // YOUR CODE HERE
+  every(collection, test) {
+    if (collection.length === 0) {
+      return true;
+    }
+    return this.reduce(collection, (value) => {
+      if (value === true) {
+        return true;
+      }
+      for (let i = 0; i < collection.length; i++) {
+        if (!test(collection[i])) {
+          return false;
+        }
+      }
+      return true;
+    });
   }
 
   /**
@@ -54,7 +110,11 @@ class LoScore {
   |~~~~~~~~~~
   * */
   extend(obj) {
-    // YOUR CODE HERE
+    let shallowCopy;
+    this.each(arguments, (value) => {
+      shallowCopy = Object.assign(obj, value);
+    });
+    return shallowCopy;
   }
 
   /**
