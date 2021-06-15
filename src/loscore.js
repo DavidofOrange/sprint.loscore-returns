@@ -134,30 +134,6 @@ class LoScore {
     // YOUR CODE HERE
   }
 
-  /**
-  | ADVANCED REQUIREMENTS
-  |~~~~~~~~~~~~~
-  * */
 
-  sortBy() {
-    // YOUR CODE HERE
-  }
-
-  zip() {
-    // YOUR CODE HREE
-  }
-
-  delay() {
-    // YOUR CODE HERE
-  }
-
-  defaults() {
-    // YOUR CODE HERE
-  }
-
-  throttle() {
-    // YOUR CODE HERE
-  }
-}
 
 module.exports = new LoScore();
