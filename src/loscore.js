@@ -117,23 +117,49 @@ class LoScore {
     return shallowCopy;
   }
 
-  /**
+/**
   | FUNCTIONS
   |~~~~~~~~~~
   * */
 
   once(func) {
-    // YOUR CODE HERE
+    let test = false;
+    let myFunction;
+    return function (value) {
+      if (test === false) {
+        test = true;
+        myFunction = func(value);
+        return myFunction;
+      }
+      if (test === true) {
+        return myFunction;
+      }
+    };
   }
 
   memoize(func) {
-    // YOUR CODE HERE
+    const storedObject = {};
+    const storeResult;
+    return function (value) {
+      JSON.stringify(value);
+      if (storedObject[value] !== undefined) {
+        return storedObject[value];
+      } 
+        storeResult = func(value);
+        storedObject[value] = storeResult;
+        return storeResult;
+    };
   }
 
   invoke(collection, functionOrKey) {
-    // YOUR CODE HERE
-  }
-
-
-
+    if(typeof functionOrKey === "string"){
+        return this.map(collection, (value) => {
+         return value[functionOrKey].apply(value);
+        })
+        }
+    if(functionOrKey instanceof function) {
+      return this.map(collection, (value) => {
+        return functionOrKey.apply(value);
+      })
+    }}
 module.exports = new LoScore();
