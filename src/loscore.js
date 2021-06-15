@@ -1,4 +1,3 @@
-// Let's make an object and start adding methods to it!
 class LoScore {
   identity(val) {
     return val;
@@ -65,13 +64,8 @@ class LoScore {
   }
 
   reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
-    // for each element of collection
-    // run the iterator on the element and the accumulator
-    // if the accumulator is left undefined, the accum should start being equal to collection[0], and the first targets of iterator should be collection[0] and collection[1]
     if (typeof accumulator === "undefined") {
       accumulator = collection[0];
-      // initialize a new array, and populate it with everything in collection except index 0, which has been used as accumulator
       let newColl = [];
       for (let i = 1; i < collection.length; i++) {
         newColl.push(collection[i]);
